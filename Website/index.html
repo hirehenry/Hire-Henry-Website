@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Hire Henry</title>
+<!-- Standard favicon -->
+<link rel="icon" href="assets/favicon_logo.png" type="image/png">
+
+<!-- Optional: better support for multiple devices -->
+<!-- <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon"> -->
+<!-- <link rel="apple-touch-icon" href="assets/favicon_logo.png"> -->
+<style>
+  :root{
+    --bg:#383939;
+    --accent:#f8b719;
+    --text:#e6eef6;
+    --muted:#9fb0c2;
+    --section-gap:0;
+    --transition-duration:700ms;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+  /* Top menu */
+  header {
+    position:fixed;
+    top:0;left:0;right:0;
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 24px;
+    z-index:1000;
+    background:linear-gradient(180deg, rgba(15,23,36,0.6), rgba(15,23,36,0.2));
+    backdrop-filter: blur(6px);
+  }
+  .menu {
+    display:flex;
+    gap:20px;
+    align-items:center;
+    font-weight:600;
+  }
+  .menu a{
+    color:var(--text);
+    text-decoration:none;
+    opacity:.85;
+    padding:6px 8px;
+  }
+
+
+.logo-spot img {
+  height: 40px;  /* keeps logo nicely scaled */
+  width: auto;   /* preserves proportions */
+}
+  /* Sections container */
+  main{position:relative;overflow-x:hidden}
+  section {
+    height:100vh;
+    min-height:600px;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:84px 6vw 48px;
+    position:relative;
+    transition:opacity var(--transition-duration) ease, transform var(--transition-duration) ease;
+    opacity:0;
+    transform:translateY(20px) scale(.995);
+    pointer-events:none;
+  }
+  section.active{
+    opacity:1;
+    transform:none;
+    pointer-events:auto;
+  }
+  /* general overlay for titles top-left */
+  .section-title{
+    position:absolute;
+    top:60px; /* below the header */
+    left:6vw;
+    font-size:28px;
+    font-weight:700;
+    letter-spacing:0.2px;
+    z-index:10;
+    color:var(--text);
+  }
+  /* Hero */
+  /* .hero{
+    padding:0;
+  }
+  .hero-image {
+  position:absolute;inset:0;
+  background-size:cover;
+  background-position:center;
+  transition:opacity 1.5s ease;
+  opacity:1;
+  }
+  .hero-message {
+    position:absolute;
+    top:40%;left:50%;
+    transform:translate(-50%,-50%);
+    font-size:48px;
+    font-weight:700;
+    color:#fff;
+    opacity:0;
+    transition:opacity 1.2s ease;
+  }
+  .hero-message.show { opacity:1; } */
+
+  .hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease; /* smooth fade */
+}
+
+.hero-image.show {
+  opacity: 1;
+}
+
+.hero-message {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: 48px;
+  font-weight: 700;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.hero-message.show {
+  opacity: 1;
+}
+
+  /* Setup & Deployment */
+
+    .two-images {
+    width:100%;
+    max-width:1200px;
+    display:flex;gap:18px;
+    align-items:center;
+    justify-content:center;
+    
+    
+  }
+  .two-images .img{
+    flex:1;
+    height:380px;
+    border-radius:10px;
+    background-size:cover;background-position:center;
+    border:1px solid rgba(255,255,255,0.05);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--muted);
+    background-size:contain;   
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  /* #setup .img {
+  position:absolute;
+  left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  width:60%; height:60%;
+  opacity:0;
+  transition:opacity 1s ease;
+  background-size:contain;   
+  background-position: center;
+  background-repeat: no-repeat;
+}
+#setup .img.show {
+  opacity:1;
+} */ 
+  .setup-button{
+    position:absolute;
+    right:6vw;
+    bottom:48px;
+    padding:10px 18px;
+    background:var(--accent);
+    color:#012;
+    font-weight:700;
+    border-radius:8px;
+    text-decoration:none;
+  }
+  /* Testimonials carousel */
+  .carousel {
+    width:100%;
+    max-width:960px;
+    height:420px;
+    position:relative;
+    overflow:hidden;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.04);
+    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  }
+  .slides {
+    display:flex;
+    height:100%;
+    transition:transform 600ms cubic-bezier(.22,.9,.3,1);
+  }
+  .slide{
+    min-width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+  .slide .img{
+    width:100%; height:100%;
+    border-radius:10px;
+    background-size:contain;
+    background-position:center;
+    background-repeat: no-repeat;
+  }
+  .carousel-controls{position:absolute;bottom:12px;left:12px;display:flex;gap:8px}
+  .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.15)}
+  .dot.active{background:var(--accent)}
+  .carousel-nav{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 8px;pointer-events:none}
+  .carousel-nav button{pointer-events:auto;background:rgba(0,0,0,0.4);border:none;color:var(--text);padding:8px;border-radius:6px}
+  /* Grids */
+  .grid{
+    width:100%;
+    max-width:1200px;
+    display:grid;
+    gap:18px;
+  }
+  .grid-3x2{grid-template-columns:repeat(3,1fr);grid-auto-rows:220px}
+  .grid-4x2{grid-template-columns:repeat(4,1fr);grid-auto-rows:160px}
+  .card{
+    /* background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02)); */
+    background:linear-gradient(180deg, #2c2d2d, #2c2d2d);
+    border-radius:8px;
+    padding:10px;
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:flex-start;
+    gap:8px;
+    cursor:pointer;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.03);
+  }
+  
+
+  .card .thumb {
+  background-size:contain;   /* fills the box, crops if needed */
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background-color: #0f1724; */
+  background-color: #232424;
+  width: 100%;
+  height: 100%;
+}
+  .card .caption{font-weight:700;font-size:14px;color:var(--text)}
+
+  .card {
+  position: relative; /* anchor point for bubble */
+}
+
+.bubble {
+  position: absolute;
+  max-width: 340px;  /* give it space */
+  min-width: 260px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: #fff;
+  color: #000;
+  font-size: 15px;
+  line-height: 1.5;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  z-index: 2000;
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+
+
+  /* Modal */
+  .modal-backdrop{
+    position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:2000;
+    background:rgba(2,6,23,0.7);
+  }
+  .modal-backdrop.open{display:flex}
+  .modal{
+    width:min(880px,92%);max-height:86vh;overflow:auto;background:#071226;padding:20px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);
+  }
+  .modal h3{margin:0 0 8px 0}
+  .modal p{color:var(--muted);line-height:1.5}
+  .modal .close{
+    display:inline-block;margin-top:12px;padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:8px;color:var(--text);cursor:pointer;
+  }
+  /* Centered single image */
+  .center-image{
+    width:520px;height:360px;border-radius:12px;background-size:cover;background-position:center;
+    /* border:1px solid #0f1724; */
+  }
+  /* Final CTA image with top-center button */
+  .final{
+    position:relative;padding-top:120px;padding-bottom:120px;
+  }
+  .final .final-image{
+    position:absolute;inset:0;background-size:cover;background-position:center;
+    filter:brightness(.35);
+  }
+  .final .final-button{
+    position:absolute;
+    top:30%;left:50%;
+    transform:translateX(-50%);
+    padding:12px 18px;
+    border-radius:8px;background:var(--accent);
+    color:#012;font-weight:700;text-decoration:none;z-index:20;
+  }
+
+  /* responsive */
+  @media (max-width:900px){
+    .two-images{flex-direction:column}
+    .section-title{font-size:20px;top:72px}
+    .grid-3x2{grid-template-columns:repeat(2,1fr)}
+    .grid-4x2{grid-template-columns:repeat(2,1fr)}
+    .center-image{width:90%;height:300px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <nav class="menu" aria-label="Site">
+    <a href="#home">Home</a>
+    <a href="#setup">Setup</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#value">Value</a>
+    <a href="#states">States</a>
+    <a href="#tech">Technology</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- Logo placeholder (top-right) -->
+  <!-- <div class="logo-spot" src= "assets/logo.png" aria-hidden="true">LOGO SPACE</div> -->
+  
+   <div class="logo-spot">
+    <img src="assets/logo.png" alt="Company Logo">
+</div>
+</header>
+
+<main>
+  <!-- Hero / full-bleed image -->
+  <!-- <section id="home" class="hero active" data-section>
+    <div class="hero-image" style="background-image: url('assets/ph12.png');"></div>
+    <div class="hero-placeholder">Hero image placeholder — replace background-image</div> -->
+
+    <!-- Message overlay -->
+    <!-- <div class="hero-message">More than just a machine</div> -->
+
+  <!-- <section id="home" class="hero active" data-section>
+    <div class="hero-image"></div>
+    <div class="hero-message">More than just a machine</div>
+
+</section> -->
+
+  <section id="home" class="hero active" data-section>
+    <div class="hero-image image-a"></div>
+    <div class="hero-image image-b"></div>
+    <div class="hero-message">More than just a machine</div>
+  </section>
+
+  <!-- Setup & Deployment -->
+  <!-- <section id="setup" data-section>
+  <div class="section-title" id="setupTitle">Setup</div>
+
+  <div class="two-images">
+    <div class="img img1" style="background-image:url('assets/setup3.png');"></div>
+    <div class="img img2" style="background-image:url('assets/setup2.png');"></div>
+  </div> -->
+
+  <section id="setup" data-section>
+    <div class="section-title">Setup &amp; Deployment Process</div>
+    <div class="two-images">
+      <div class="img" style="background-image:url('assets/setup3.png');"></div>
+      <div class="img" style="background-image:url('assets/setup2.png');"></div>
+    </div>
+      <a class="setup-button" href="http://ui.hirehenry.ai/" target="_blank" rel="noopener">Login</a>
+</section>
+
+
+  <!-- Testimonials -->
+  <section id="testimonials" data-section>
+    <div class="section-title">Technology</div>
+    <div class="carousel" aria-roledescription="carousel">
+      <div class="slides">
+        <!-- <div class="slide"><div class="img" style="background-image:url('');">AI image 1</div></div> -->
+          <div class="slide">
+    <video autoplay muted loop playsinline 
+       style="width:100%; height:100%; border-radius:10px; object-fit:contain;">
+        <source src="assets/tec_ui.mp4" type="video/mp4">
+  </div>
+        <div class="slide"><div class="img" style="background-image:url('assets/cv_seg2.png');"></div></div>
+        <div class="slide"><div class="img" style="background-image:url('assets/h3.jpg');"></div></div>
+      </div>
+      <div class="carousel-nav">
+        <button id="prevCar" aria-label="Previous">‹</button>
+        <button id="nextCar" aria-label="Next">›</button>
+      </div>
+      <div class="carousel-controls" id="dots"></div>
+    </div>
+  </section>
+
+  <!-- Value Delivered -->
+  <section id="value" data-section>
+    <div class="section-title">Value Delivered</div>
+    <div class="grid grid-3x2" id="valueGrid">
+      <!-- six cards -->
+      <div class="card" data-title="SUSTAINABILITY & NOISE" data-desc="While many organizations are developing ESG plans,
+       one large source of greenhouse gas emissions is oftentimes left out of planning --
+        outdoor power equipment. We are interested in how organizations are preparing maintenance departments for a sustainable future.">
+        <div class="thumb" style="background-image:url('assets/sustanability.png');"></div>
+        <div class="caption">SUSTAINABILITY &amp; NOISE</div>
+      </div>
+      <div class="card" data-title="SAFETY" data-desc="The nature of grounds maintenance requires workers to operate in potentially dangerous environments. 
+       We are interested in what the future of grounds maintenance safety may look like for our partner organizations, and its workers.
+       To this end, we facilitate conversations, request data, and analyze reports; ultimately providing insights based on our experience working with autonomous technology.">
+        <div class="thumb" style="background-image:url('assets/safety.png');"></div>
+        <div class="caption">SAFETY</div>
+      </div>
+      <div class="card" data-title="JOB CREATION" data-desc="There's no surprise that top talent can be hard to recruit and retain. 
+      We are interested in how autonomous technology and artificial intelligence (AI) can, 
+      and likely will, impact seemingly disconnected parts of our partner organization’s labor pool.">
+        <div class="thumb" style="background-image:url('assets/job.png');"></div>
+        <div class="caption">JOB CREATION</div>
+      </div>
+      <div class="card" data-title="NEWS MEDIA" data-desc="Leaders in innovation are oftentimes focused on being stewards of knowledge and helping industry to establish best-in-class practices. 
+      To accomplish this goal, organizations present at conferences, publish articles, conduct interviews with news outlets, and showcase innovations of their websites.
+       We are interested in ways that autonomous technology can help progress these goals.">
+
+        <div class="thumb" style="background-image:url('assets/news.png');"></div>
+        <div class="caption">NEWS MEDIA</div>
+      </div>
+      <div class="card" data-title="TECHNOLOGY LEADERSHIP" data-desc="The department of innovation is essential for startups to understand how partner organizations operate. 
+      This area is interested in understanding what business models and technologies, departments of innovation are most excited about, and what the department has learned migrating successful pilots to real-world use cases for their organizations, in hopes of extrapolating that data for autonomous robotic companies and products.">
+        <div class="thumb" style="background-image:url('assets/tec_iso.png');"></div>
+        <div class="caption">TECHNOLOGY LEADERSHIP</div>
+      </div>
+      <div class="card" data-title="PRODUCTIVITY" data-desc="The most impactful value of autonomous mowing technology very well could be increases in productivity and efficiency.
+       We are interested in understanding how maintenance teams currently track, and improve, productivity -- particularly while addressing limited resources. Further, as fully electric, autonomous, robotic lawn mowers continue to grow in popularity, there will be increased importance on how equipment will be integrated within operations and organization at large.
+       Our goal is to help provide some insight as to what a plan like this might entail.">
+        <div class="thumb" style="background-image:url('assets/task_iso.png');"></div>
+        <div class="caption">PRODUCTIVITY</div>
+      </div>
+    </div>
+    
+  </section>
+
+  <!-- States In Operation -->
+  <section id="states" data-section>
+    <div class="section-title">Henry Deployments</div>
+    <div style="display:flex;align-items:center;justify-content:center;width:100%;">
+      <div class="center-image" style="background-image:url('assets/state.png');"></div>
+    </div>
+  </section>
+
+  <!-- Technology -->
+  <section id="tech" data-section>
+    <div class="section-title">Core Technology</div>
+    <div class="grid grid-4x2" id="techGrid">
+      <!-- eight cards -->
+      <!-- add attributes with title/desc for modals -->
+      <div class="card" data-title="GPS Localization" data-desc="Robots rely on GPS/GNSS for precise navigation, using satellite signals to determine their location, speed, and movement. 
+      This technology enables autonomous systems to operate efficiently in outdoor environments, from agriculture to defense. ">
+        <div class="thumb" style="background-image:url('assets/loc.png');"></div>
+        <div class="caption">GPS Localization</div>
+      </div>
+      <div class="card" data-title="Computer Vision" data-desc="Robots use computer vision to interpret their surroundings, enabling tasks like object detection and navigation. 
+      This technology enhances autonomy across industries, from manufacturing to security. We are interested in how organizations apply computer vision to improve robotic efficiency.">
+        <div class="thumb" style="background-image:url('assets/cv.png');"></div>
+        <div class="caption">Computer Vision</div>
+      </div>
+      <div class="card" data-title="Obstacle Mapping" data-desc="Robots use obstacle mapping to navigate safely by detecting and avoiding hazards. 
+      This technology improves autonomy across industries. We are interested in how organizations utilize obstacle mapping in robotics.">
+        <div class="thumb" style="background-image:url('assets/grid.png');"></div>
+        <div class="caption">Obstacle Mapping</div>
+      </div>
+      <div class="card" data-title="Autonomy" data-desc="Robots achieve autonomy through AI and sensors, enabling independent operation. 
+      We are interested in how organizations enhance robotic autonomy for efficiency">
+        <div class="thumb" style="background-image:url('assets/autonomy.png');"></div>
+        <div class="caption">Autonomy</div>
+      </div>
+
+      <div class="card" data-title="Obstacle Avoidance" data-desc="Robots use obstacle avoidance to navigate safely by detecting and responding to hazards. 
+      This technology enhances autonomy and efficiency. We are interested in how organizations implement obstacle avoidance in robotics.">
+        <div class="thumb" style="background-image:url('assets/avoid.png');"></div>
+        <div class="caption">Obstacle Avoidance</div>
+      </div>
+      <div class="card" data-title="Mobile App" data-desc="Robots use mobile apps for remote control, monitoring, and data analysis. 
+      This technology improves user interaction and efficiency. We are interested in how organizations leverage mobile apps for robotics.">
+        <div class="thumb" style="background-image:url('assets/mobile_iso.png');"></div>
+        <div class="caption">Mobile App</div>
+      </div>
+      <div class="card" data-title="Autonomy Tuning" data-desc="Robots use autonomy tuning to adjust behavior for optimal performance in various environments. 
+      This technology enhances efficiency and adaptability. We are interested in how organizations refine autonomy tuning in robotics.">
+        <div class="thumb" style="background-image:url('assets/tuning.png');"></div>
+        <div class="caption">Autonomy Tuning</div>
+      </div>
+      <div class="card" data-title="Core Communication" data-desc="Robots rely on core communication to exchange data and commands with other systems. 
+      This technology ensures seamless operation and coordination. We are interested in how organizations implement core communication in robotics.">
+        <div class="thumb" style="background-image:url('assets/core.png');"></div>
+        <div class="caption">Core Communication</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final section -->
+  <section id="contact" class="final" data-section>
+    <div class="final-image" style="background-image:url('assets/demo.png');" aria-hidden="true"></div>
+    <a class="final-button" href="#" target="_blank" rel="noopener" data-link="https://example.com/cta">Schedule a Demo</a>
+    <div style="z-index:12;color:var(--muted);max-width:900px;padding:12px;text-align:center;">
+
+    </div>
+  </section>
+</main>
+
+<!-- Modal -->
+<div id="modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal" role="document">
+    <h3 id="modalTitle">Title</h3>
+    <p id="modalDesc">Description</p>
+    <button class="close" id="closeModal">Close</button>
+  </div>
+</div>
+
+<script>
+
+// Fade-in hero message after 3 seconds
+// window.addEventListener("load", () => {
+//   setTimeout(() => {
+//     document.querySelector(".hero-message").classList.add("show");
+//   }, 5000); // 3000ms = 3 seconds
+// });
+
+
+
+// Home image + message cycle
+// Hero image cycle (with message only on last image)
+// (function(){
+//   const images = [
+//     "assets/home1.png",
+//     "assets/home2.png",
+//     "assets/home3.png",
+//     "assets/home4.png"   // last one shows the text
+//   ];
+//   let idx = 0;
+//   const hero = document.querySelector(".hero-image");
+//   const msg = document.querySelector(".hero-message");
+
+//   function cycle(){
+//     // Change image
+//     hero.style.backgroundImage = `url('${images[idx]}')`;
+
+//     // Show message ONLY on the last image
+//     if(idx === images.length - 1){
+//       msg.classList.add("show");
+//     } else {
+//       msg.classList.remove("show");
+//     }
+
+//     // Next index
+//     idx = (idx + 1) % images.length;
+//   }
+
+//   // Start loop
+//   setInterval(cycle, 4000); // every 4s
+//   cycle(); // run once at start
+// })();
+
+window.addEventListener('DOMContentLoaded', () => {
+  const images = [
+    'assets/home1.png',
+    'assets/home2.png',
+    'assets/home3.png',
+    'assets/home4.png'
+  ];
+
+  const msg = document.querySelector('.hero-message');
+  const [imgA, imgB] = document.querySelectorAll('.hero-image');
+  let idx = 0;
+  let showingA = true;
+
+  function cycle() {
+    const nextImg = images[idx];
+    const isLast = (idx === images.length - 1);
+
+    if (showingA) {
+      imgB.style.backgroundImage = `url('${nextImg}')`;
+      imgB.classList.add('show');
+      imgA.classList.remove('show');
+    } else {
+      imgA.style.backgroundImage = `url('${nextImg}')`;
+      imgA.classList.add('show');
+      imgB.classList.remove('show');
+    }
+
+    // message only on last image
+    msg.classList.toggle('show', isLast);
+
+    showingA = !showingA;
+    idx = (idx + 1) % images.length;
+  }
+
+  // init first image
+  imgA.style.backgroundImage = `url('${images[0]}')`;
+  imgA.classList.add('show');
+  idx = 1;
+
+  // loop every 4s
+  setInterval(cycle, 4000);
+});
+
+/* Smooth section visibility via IntersectionObserver */
+(function(){
+  const sections = document.querySelectorAll('section[data-section]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.intersectionRatio > 0.5){
+        entry.target.classList.add('active');
+      } else {
+        entry.target.classList.remove('active');
+      }
+    });
+  }, {threshold: [0, 0.25, 0.5, 0.75, 1]});
+  sections.forEach(s => observer.observe(s));
+})();
+
+// Setup & Deployment cycle
+// (function(){
+//   const section = document.querySelector("#setup");
+//   const title = document.getElementById("setupTitle");
+//   const img1 = section.querySelector(".img1");
+//   const img2 = section.querySelector(".img2");
+
+//   let state = 0; // 0=setup, 1=deployment
+//   let loop;
+
+//   function cycle(){
+//     if(state === 0){
+//       title.textContent = "1. Setup";
+//       img1.classList.add("show");
+//       img2.classList.remove("show");
+//     } else {
+//       title.textContent = "2. Deployment";
+//       img1.classList.remove("show");
+//       img2.classList.add("show");
+//     }
+//     state = (state + 1) % 2;
+//   }
+
+//   // Observe when the section enters view
+//   const observer = new IntersectionObserver((entries)=>{
+//     entries.forEach(entry=>{
+//       if(entry.isIntersecting){
+//         cycle();
+//         loop = setInterval(cycle, 4000); // every 4s
+//       } else {
+//         clearInterval(loop);
+//       }
+//     });
+//   }, {threshold:0.5});
+//   observer.observe(section);
+// })();
+
+
+/* Hook up external links (data-link) on buttons so user can set it via attribute */
+document.querySelectorAll('[data-link]').forEach(el=>{
+  el.addEventListener('click', (e)=>{
+    // allow default if href present; otherwise open link
+    const link = el.getAttribute('data-link');
+    if(link && (!el.getAttribute('href') || el.getAttribute('href') === '#')){
+      e.preventDefault();
+      window.open(link, '_blank', 'noopener');
+    }
+  });
+});
+
+/* Testimonials carousel basic implementation */
+(function(){
+  const slidesWrap = document.querySelector('.slides');
+  const slides = document.querySelectorAll('.slide');
+  const dotsWrap = document.getElementById('dots');
+  const prev = document.getElementById('prevCar'), next = document.getElementById('nextCar');
+  let idx = 0;
+
+  function renderDots(){
+    dotsWrap.innerHTML = '';
+    slides.forEach((s,i)=>{
+      const d = document.createElement('div');
+      d.className='dot' + (i===idx? ' active' : '');
+      d.addEventListener('click',()=>{goto(i)});
+      dotsWrap.appendChild(d);
+    });
+  }
+  function goto(i){
+    idx = (i + slides.length) % slides.length;
+    slidesWrap.style.transform = `translateX(${-idx*100}%)`;
+    renderDots();
+  }
+  prev.addEventListener('click',()=>goto(idx-1));
+  next.addEventListener('click',()=>goto(idx+1));
+  renderDots();
+  // auto-advance
+  let auto = setInterval(()=>{goto(idx+1)}, 4500);
+  // pause on hover
+  const carousel = document.querySelector('.carousel');
+  carousel.addEventListener('mouseenter', ()=> clearInterval(auto));
+  carousel.addEventListener('mouseleave', ()=> auto = setInterval(()=>{goto(idx+1)}, 4500));
+})();
+
+/* Modal for cards (Value delivered and Tech) */
+// (function(){
+//   const modal = document.getElementById('modal');
+//   const title = document.getElementById('modalTitle');
+//   const desc = document.getElementById('modalDesc');
+//   const close = document.getElementById('closeModal');
+
+//   function openModal(t,d){
+//     title.textContent = t || 'Details';
+//     desc.textContent = d || '';
+//     modal.classList.add('open');
+//     modal.setAttribute('aria-hidden','false');
+//   }
+//   function closeModal(){
+//     modal.classList.remove('open');
+//     modal.setAttribute('aria-hidden','true');
+//   }
+//   close.addEventListener('click', closeModal);
+//   modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+
+//   document.querySelectorAll('.card').forEach(card=>{
+//     card.addEventListener('click', ()=>{
+//       const t = card.dataset.title || card.querySelector('.caption')?.textContent;
+//       const d = card.dataset.desc || 'More info about ' + (t || 'item');
+//       openModal(t,d);
+//     });
+//   });
+// })();
+
+// Modal for cards (Value delivered and Tech)
+(function(){
+  let activeBubble = null;
+  let activeCard = null;
+
+  function toggleBubble(card) {
+    // Toggle off if same card clicked
+    if (activeCard === card && activeBubble) {
+      activeBubble.remove();
+      activeBubble = null;
+      activeCard = null;
+      return;
+    }
+
+    // Remove old bubble
+    if (activeBubble) {
+      activeBubble.remove();
+      activeBubble = null;
+      activeCard = null;
+    }
+
+    // Create new bubble
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.textContent = card.dataset.desc || '';
+
+    document.body.appendChild(bubble);
+
+    // Position relative to viewport
+    const rect = card.getBoundingClientRect();
+    const bubbleRect = bubble.getBoundingClientRect();
+
+    const top = rect.top + window.scrollY - bubbleRect.height - 14; // above card
+    const left = rect.left + window.scrollX + rect.width/2 - bubbleRect.width/2; // center
+
+    bubble.style.top = `${top}px`;
+    bubble.style.left = `${left}px`;
+
+    activeBubble = bubble;
+    activeCard = card;
+  }
+
+  // Attach to all cards in both grids
+  document.querySelectorAll('#valueGrid .card, #techGrid .card').forEach(card => {
+    card.addEventListener('click', () => toggleBubble(card));
+  });
+
+  // Optional: click outside closes bubble
+  document.addEventListener('click', (e) => {
+    if (activeBubble && !e.target.closest('.card')) {
+      activeBubble.remove();
+      activeBubble = null;
+      activeCard = null;
+    }
+  });
+})();
+
+/* Link menu anchors to smooth scroll and highlight */
+document.querySelectorAll('header .menu a').forEach(a=>{
+  a.addEventListener('click', (e)=>{
+    const href = a.getAttribute('href');
+    if(href && href.startsWith('#')){
+      e.preventDefault();
+      const el = document.querySelector(href);
+      if(el) el.scrollIntoView({behavior:'smooth'});
+    }
+  });
+});
+
+/* Accessibility: close modal with Esc */
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape'){
+    const modal = document.getElementById('modal');
+    if(modal.classList.contains('open')) modal.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
