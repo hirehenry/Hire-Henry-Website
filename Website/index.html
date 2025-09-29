@@ -1,3 +1,6 @@
+
+<!-- Property of Mona Marie Corporation -->
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -33,6 +36,10 @@
     z-index:1000;
     background:linear-gradient(180deg, rgba(15,23,36,0.6), rgba(15,23,36,0.2));
     backdrop-filter: blur(6px);
+  }
+  main{
+    width: 100%;
+    height: 100%;
   }
   .menu {
     display:flex;
@@ -163,20 +170,7 @@
     background-position: center;
     background-repeat: no-repeat;
   }
-  /* #setup .img {
-  position:absolute;
-  left:50%; top:50%;
-  transform:translate(-50%,-50%);
-  width:60%; height:60%;
-  opacity:0;
-  transition:opacity 1s ease;
-  background-size:contain;   
-  background-position: center;
-  background-repeat: no-repeat;
-}
-#setup .img.show {
-  opacity:1;
-} */ 
+
   .setup-button{
     position:absolute;
     right:6vw;
@@ -188,7 +182,7 @@
     border-radius:8px;
     text-decoration:none;
   }
-  /* Testimonials carousel */
+  /* Technology carousel */
   .carousel {
     width:100%;
     max-width:960px;
@@ -199,6 +193,25 @@
     border:1px solid rgba(255,255,255,0.04);
     background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
   }
+
+  .carousel-title {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1.2;
+    z-index: 5;
+    pointer-events: none; /* doesn’t block clicks on arrows */
+    max-width: 70%;
+  }
+
+  /* Optional: if you want to hide the captions under each slide now */
+  #technology .slide > .caption { display: none; }
   .slides {
     display:flex;
     height:100%;
@@ -308,22 +321,87 @@
     width:520px;height:360px;border-radius:12px;background-size:cover;background-position:center;
     /* border:1px solid #0f1724; */
   }
-  /* Final CTA image with top-center button */
-  .final{
-    position:relative;padding-top:120px;padding-bottom:120px;
-  }
-  .final .final-image{
-    position:absolute;inset:0;background-size:cover;background-position:center;
-    filter:brightness(.35);
-  }
-  .final .final-button{
-    position:absolute;
-    top:30%;left:50%;
-    transform:translateX(-50%);
-    padding:12px 18px;
-    border-radius:8px;background:var(--accent);
-    color:#012;font-weight:700;text-decoration:none;z-index:20;
-  }
+/* ===========================
+   FINAL SECTION (Contact / Demo)
+   Only this section gets a white background
+   =========================== */
+
+/* Section wrapper: white background, center content */
+.final {
+  background: #ffffff; /* Make only this section white */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;  /* Full screen */
+  overflow: hidden;
+   z-index: 1;
+}
+
+/* Background image */
+.final-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+  /* opacity: 0.2;  */
+}
+
+/* Form styling */
+.final-form {
+  position: relative;
+  z-index: 3;
+  padding: 10px 10px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column; /* keep label above */
+  align-items: center;
+}
+
+.final-form label {
+  font-size: 25px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  margin-left: -20%;
+  color: #656565;
+}
+
+/* Row layout for input + button */
+.final-form .input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* space between input and button */
+}
+
+/* Input styles */
+.final-form input[type="email"] {
+  padding: 10px 14px;
+  border: 1px solid #6f6e6e;
+  border-radius: 6px;
+  width: 250px;
+  margin-bottom: 70%; /* remove the big margin */
+}
+
+/* Button styles */
+.final-form button {
+  padding: 10px 20px;
+  background: #f8b719; /* brand color */
+  color: #000000;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  white-space: nowrap; /* keeps button text on one line */
+  margin-bottom: 70%;
+}
+
+.final-form button:hover {
+  background: #616161;
+}
+
+
+ 
 
   /* responsive */
   @media (max-width:900px){
@@ -340,36 +418,21 @@
   <nav class="menu" aria-label="Site">
     <a href="#home">Home</a>
     <a href="#setup">Setup</a>
-    <a href="#testimonials">Testimonials</a>
+    <a href="#technology">Technology</a>
     <a href="#value">Value</a>
-    <a href="#states">States</a>
-    <a href="#tech">Technology</a>
+    <a href="#states">Deployment</a>
+    <a href="#tech">Core Technology</a>
     <a href="#contact">Contact</a>
   </nav>
 
-  <!-- Logo placeholder (top-right) -->
-  <!-- <div class="logo-spot" src= "assets/logo.png" aria-hidden="true">LOGO SPACE</div> -->
-  
+  <!-- Logo placeholder (top-right) -->  
    <div class="logo-spot">
     <img src="assets/logo.png" alt="Company Logo">
 </div>
 </header>
 
 <main>
-  <!-- Hero / full-bleed image -->
-  <!-- <section id="home" class="hero active" data-section>
-    <div class="hero-image" style="background-image: url('assets/ph12.png');"></div>
-    <div class="hero-placeholder">Hero image placeholder — replace background-image</div> -->
-
-    <!-- Message overlay -->
-    <!-- <div class="hero-message">More than just a machine</div> -->
-
-  <!-- <section id="home" class="hero active" data-section>
-    <div class="hero-image"></div>
-    <div class="hero-message">More than just a machine</div>
-
-</section> -->
-
+  <!-- Home / full-bleed image -->
   <section id="home" class="hero active" data-section>
     <div class="hero-image image-a"></div>
     <div class="hero-image image-b"></div>
@@ -388,34 +451,50 @@
   <section id="setup" data-section>
     <div class="section-title">Setup &amp; Deployment Process</div>
     <div class="two-images">
-      <div class="img" style="background-image:url('assets/setup3.png');"></div>
+      <div class="img" style="background-image:url('assets/setup1.png');"></div>
       <div class="img" style="background-image:url('assets/setup2.png');"></div>
     </div>
       <a class="setup-button" href="http://ui.hirehenry.ai/" target="_blank" rel="noopener">Login</a>
 </section>
 
 
-  <!-- Testimonials -->
-  <section id="testimonials" data-section>
-    <div class="section-title">Technology</div>
-    <div class="carousel" aria-roledescription="carousel">
-      <div class="slides">
-        <!-- <div class="slide"><div class="img" style="background-image:url('');">AI image 1</div></div> -->
-          <div class="slide">
-    <video autoplay muted loop playsinline 
-       style="width:100%; height:100%; border-radius:10px; object-fit:contain;">
-        <source src="assets/tec_ui.mp4" type="video/mp4">
-  </div>
-        <div class="slide"><div class="img" style="background-image:url('assets/cv_seg2.png');"></div></div>
-        <div class="slide"><div class="img" style="background-image:url('assets/h3.jpg');"></div></div>
+  <!-- Technology -->
+  <section id="technology" data-section>
+  <div class="section-title">Technology</div>
+
+  <div class="carousel" aria-roledescription="carousel">
+    <!-- Slides go in here -->
+    <div class="slides">
+      <!-- Slide 1: VIDEO -->
+      <div class="slide" data-title="UI Demo">
+        <video autoplay muted loop playsinline
+               style="width:100%; height:100%; border-radius:10px; object-fit:contain;">
+          <source src="assets/tec_ui.mp4" type="video/mp4">
+        </video>
       </div>
-      <div class="carousel-nav">
-        <button id="prevCar" aria-label="Previous">‹</button>
-        <button id="nextCar" aria-label="Next">›</button>
+
+      <!-- Slide 2: IMAGE -->
+      <div class="slide" data-title="Computer Vision">
+        <div class="img" style="background-image:url('assets/cv_seg2.png');"></div>
       </div>
-      <div class="carousel-controls" id="dots"></div>
+
+      <!-- Slide 3: IMAGE -->
+      <div class="slide" data-title="Hardware">
+        <div class="img" style="background-image:url('assets/h3.jpg');"></div>
+      </div>
     </div>
-  </section>
+
+    <!-- Single overlay title (top-left of the carousel) -->
+    <div class="carousel-title" id="carouselTitle"></div>
+
+    <div class="carousel-nav">
+      <button id="prevCar" aria-label="Previous">‹</button>
+      <button id="nextCar" aria-label="Next">›</button>
+    </div>
+    <div class="carousel-controls" id="dots"></div>
+  </div>
+</section>
+
 
   <!-- Value Delivered -->
   <section id="value" data-section>
@@ -464,13 +543,13 @@
 
   <!-- States In Operation -->
   <section id="states" data-section>
-    <div class="section-title">Henry Deployments</div>
+    <div class="section-title">Deployment Sites</div>
     <div style="display:flex;align-items:center;justify-content:center;width:100%;">
       <div class="center-image" style="background-image:url('assets/state.png');"></div>
     </div>
   </section>
 
-  <!-- Technology -->
+  <!-- Core Technology -->
   <section id="tech" data-section>
     <div class="section-title">Core Technology</div>
     <div class="grid grid-4x2" id="techGrid">
@@ -520,68 +599,55 @@
     </div>
   </section>
 
-  <!-- Final section -->
-  <section id="contact" class="final" data-section>
-    <div class="final-image" style="background-image:url('assets/demo.png');" aria-hidden="true"></div>
-    <a class="final-button" href="#" target="_blank" rel="noopener" data-link="https://example.com/cta">Schedule a Demo</a>
-    <div style="z-index:12;color:var(--muted);max-width:900px;padding:12px;text-align:center;">
 
+
+  <!-- Demo request section -->
+  <section id="contact" class="final" data-section>
+    <!-- Background image -->
+    <div class="final-image" style="background-image:url('assets/demo.png');" aria-hidden="true"></div>
+
+    <!-- Decorative background square -->
+    <div class="final-overlay"></div>
+
+    <!-- Email request form -->
+    <form class="final-form" name="demo-request" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="demoForm">
+      <input type="hidden" name="form-name" value="demo-request" />
+      <label for="email">Request a Demo:</label>
+
+      <div class="input-row">
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        <button type="submit">Submit</button>
+      </div>
+
+      <!-- hidden anti-bot field -->
+      <p style="display:none">
+        <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+      </p>
+    </form>
+
+    <!-- thank you message (hidden by default) -->
+    <div id="thankYouMessage" style="display:none; margin-top:15px; font-weight:bold; color:green;">
+      ✅ Thanks! We’ll be in touch.
     </div>
+
   </section>
+
+
 </main>
 
 <!-- Modal -->
-<div id="modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+<!-- <div id="modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
   <div class="modal" role="document">
     <h3 id="modalTitle">Title</h3>
     <p id="modalDesc">Description</p>
     <button class="close" id="closeModal">Close</button>
   </div>
-</div>
+</div> -->
 
 <script>
 
-// Fade-in hero message after 3 seconds
-// window.addEventListener("load", () => {
-//   setTimeout(() => {
-//     document.querySelector(".hero-message").classList.add("show");
-//   }, 5000); // 3000ms = 3 seconds
-// });
 
 
-
-// Home image + message cycle
-// Hero image cycle (with message only on last image)
-// (function(){
-//   const images = [
-//     "assets/home1.png",
-//     "assets/home2.png",
-//     "assets/home3.png",
-//     "assets/home4.png"   // last one shows the text
-//   ];
-//   let idx = 0;
-//   const hero = document.querySelector(".hero-image");
-//   const msg = document.querySelector(".hero-message");
-
-//   function cycle(){
-//     // Change image
-//     hero.style.backgroundImage = `url('${images[idx]}')`;
-
-//     // Show message ONLY on the last image
-//     if(idx === images.length - 1){
-//       msg.classList.add("show");
-//     } else {
-//       msg.classList.remove("show");
-//     }
-
-//     // Next index
-//     idx = (idx + 1) % images.length;
-//   }
-
-//   // Start loop
-//   setInterval(cycle, 4000); // every 4s
-//   cycle(); // run once at start
-// })();
 
 window.addEventListener('DOMContentLoaded', () => {
   const images = [
@@ -679,6 +745,66 @@ window.addEventListener('DOMContentLoaded', () => {
 // })();
 
 
+(function(){
+  const slidesWrap = document.querySelector('.slides');
+  const slides = document.querySelectorAll('.slide');
+  const dotsWrap = document.getElementById('dots');
+  const prev = document.getElementById('prevCar'), next = document.getElementById('nextCar');
+  const titleEl = document.getElementById('carouselTitle'); // NEW
+  let idx = 0;
+
+  function getTitle(i){ // NEW
+    const s = slides[i];
+    // Prefer data-title; fall back to the slide's caption text if present
+    return s.dataset.title || (s.querySelector('.caption')?.textContent || '');
+  }
+
+  function updateTitle(){ // NEW
+    if (titleEl) titleEl.textContent = getTitle(idx);
+  }
+
+  function renderDots(){
+    dotsWrap.innerHTML = '';
+    slides.forEach((s,i)=>{
+      const d = document.createElement('div');
+      d.className='dot' + (i===idx? ' active' : '');
+      d.addEventListener('click',()=>goto(i));
+      dotsWrap.appendChild(d);
+    });
+  }
+
+  function goto(i){
+    idx = (i + slides.length) % slides.length;
+    slidesWrap.style.transform = `translateX(${-idx*100}%)`;
+    renderDots();
+    handleVideoPlayback();
+    updateTitle(); // NEW
+  }
+
+  prev.addEventListener('click',()=>goto(idx-1));
+  next.addEventListener('click',()=>goto(idx+1));
+  renderDots();
+
+  let auto = setInterval(()=>goto(idx+1), 4500);
+  const carousel = document.querySelector('.carousel');
+  carousel.addEventListener('mouseenter', ()=> clearInterval(auto));
+  carousel.addEventListener('mouseleave', ()=> auto = setInterval(()=>goto(idx+1), 4500));
+
+  function handleVideoPlayback(){
+    slides.forEach((s,i)=>{
+      const v = s.querySelector('video');
+      if(!v) return;
+      if(i === idx){ v.play().catch(()=>{}); }
+      else { v.pause(); v.currentTime = 0; }
+    });
+  }
+
+  // Initial title
+  updateTitle(); // NEW
+})();
+
+
+
 /* Hook up external links (data-link) on buttons so user can set it via attribute */
 document.querySelectorAll('[data-link]').forEach(el=>{
   el.addEventListener('click', (e)=>{
@@ -691,7 +817,7 @@ document.querySelectorAll('[data-link]').forEach(el=>{
   });
 });
 
-/* Testimonials carousel basic implementation */
+/* Technology carousel basic implementation */
 (function(){
   const slidesWrap = document.querySelector('.slides');
   const slides = document.querySelectorAll('.slide');
