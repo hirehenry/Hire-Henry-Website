@@ -410,6 +410,83 @@
     .final-form label { font-size: 18px; margin-left: 0; }
     .final-form input[type="email"] { width: 200px; }
   }
+
+
+/* -------------------------------
+   MOBILE VISIBILITY & SIZING FIXES
+   Append at the very bottom
+----------------------------------*/
+
+/* 1) On phones, force sections visible even if the IntersectionObserver
+   doesn’t add .active (prevents everything from being "invisible"). */
+@media (max-width: 600px) {
+  section {
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* 2) Ensure the two setup images always have height on phones */
+@media (max-width: 600px) {
+  .two-images {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .two-images .img {
+    /* Give them a responsive height that fits small screens */
+    height: min(55vw, 280px);
+    min-height: 180px;
+  }
+}
+
+/* 3) Make grid cards keep a visible, responsive area for the background-image
+   on phones so the images don’t collapse */
+@media (max-width: 600px) {
+  .grid {
+    gap: 14px;
+  }
+
+  /* Single column on phones is fine, but rows must have room */
+  .grid-3x2,
+  .grid-4x2 {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto; /* let height be determined by content */
+  }
+
+  /* The card itself should size to its content */
+  .card {
+    padding: 10px;
+  }
+
+  /* The thumb is the visible image area: give it a healthy min-height */
+  .card .thumb {
+    width: 100%;
+    /* Use aspect-ratio so backgrounds scale nicely without overflow */
+    aspect-ratio: 4 / 3;
+    height: auto;               /* height driven by aspect ratio */
+    min-height: 180px;          /* safety floor on very small screens */
+    background-size: contain;   /* keep full image in view */
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+/* 4) Keep a little more breathing room below section titles
+   (helps separate titles from assets on small screens too) */
+@media (max-width: 900px) {
+  /* First content blocks under titles get extra top margin */
+  #setup .two-images,
+  #testimonials .carousel,
+  #value .grid,
+  #tech .grid {
+    margin-top: 56px;
+  }
+}
+
+
+
+
 </style>
 
 
