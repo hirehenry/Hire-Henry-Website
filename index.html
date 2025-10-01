@@ -482,6 +482,50 @@
   #tech .grid {
     margin-top: 56px;
   }
+
+
+  /* ====== Setup section mobile fix (append at end) ====== */
+
+/* 1) On smaller screens, ensure the SETUP section is visible even if the observer
+      hasn’t added .active yet (prevents it being transparent on phones). */
+@media (max-width: 900px) {
+  #setup {
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* 2) Make the two setup images stack vertically and guarantee a visible, responsive height */
+@media (max-width: 900px) {
+  #setup .two-images {
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+
+  #setup .two-images .img {
+    /* Responsive height: scales with viewport width, with sane limits */
+    aspect-ratio: 16 / 10;   /* gives a nice shallow rectangle */
+    width: 100%;
+    height: auto;            /* let aspect-ratio control height */
+    min-height: 180px;       /* safety floor for very small phones */
+
+    /* Make sure the background image is fully visible */
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    /* Optional: subtle backdrop so you can “see” the image box even if the image has transparency */
+    background-color: #232424;
+  }
+}
+
+/* 3) Add breathing room between the Setup title and the images on all screens */
+#setup .two-images {
+  margin-top: 60px;
+}
+
 }
 
 
