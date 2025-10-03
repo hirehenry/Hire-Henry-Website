@@ -109,6 +109,100 @@
     margin-top: -2%;
   }
 
+
+
+  /* Header layout: 3 columns [hamburger] [menu] [logo] */
+  header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+  }
+
+  /* Desktop menu (default visible) */
+  .menu {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-weight: 600;
+  }
+  .menu a {
+    color: var(--text);
+    text-decoration: none;
+    opacity: .85;
+    padding: 6px 8px;
+  }
+
+  /* Logo stays on the right */
+  .logo-spot { justify-self: end; }
+  .logo-spot img { height: 40px; width: auto; }
+
+  /* Hamburger button (hidden by default, shown on small screens) */
+  .menu-toggle {
+    display: none;             /* shown in media query */
+    width: 40px; height: 40px;
+    border: none; background: transparent;
+    padding: 0; margin: 0;
+    align-items: center; justify-content: center;
+    cursor: pointer;
+  }
+  .menu-toggle span {
+    display: block;
+    width: 24px; height: 2px;
+    background: var(--text);
+    margin: 5px 0;
+    transition: transform .25s ease, opacity .2s ease;
+  }
+
+  /* Mobile dropdown panel (hidden by default) */
+  .mobile-menu {
+    position: fixed;
+    top: 64px; left: 0; right: 0;   /* directly under header */
+    background: rgba(28,29,29,0.98);
+    backdrop-filter: blur(4px);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: none;                  /* toggled via .open */
+    flex-direction: column;
+    padding: 10px 12px;
+    z-index: 999;
+  }
+  .mobile-menu a {
+    color: var(--text);
+    text-decoration: none;
+    padding: 12px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+  .mobile-menu a:hover,
+  .mobile-menu a:active {
+    background: rgba(255,255,255,0.06);
+  }
+
+  /* --- Responsive behavior --- */
+  @media (max-width: 780px) {
+    /* Hide desktop nav; show hamburger */
+    .menu { display: none !important; }
+    .menu-toggle { display: inline-flex; }
+
+    /* Show panel when toggled open */
+    .mobile-menu.open { display: flex; }
+
+    /* Animate hamburger → X */
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+  }
+
+  /* Make sure the section title never blocks clicks on the menu */
+  .section-title { pointer-events: none; }
+
+
   /* Hero */
   .hero { position: relative; overflow: hidden; }
   .hero-image {
@@ -544,7 +638,10 @@
 <body>
 <header>
 
-  
+  <!-- Hamburger button (hidden on desktop, shown on small screens) -->
+  <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span><span></span>
+  </button>
 
   <nav class="menu" aria-label="Site">
     <a href="#home">Home</a>
@@ -561,6 +658,17 @@
     <img src="assets/logo.png" alt="Company Logo">
 </div>
 </header>
+
+<!-- Mobile dropdown menu (same links) -->
+<nav id="mobileMenu" class="mobile-menu" aria-label="Mobile" hidden>
+  <a href="#home">Home</a>
+  <a href="#setup">Setup</a>
+  <a href="#technology">Technology</a>
+  <a href="#value">Value</a>
+  <a href="#states">Deployment</a>
+  <a href="#tech">Core Technology</a>
+  <a href="#contact">Contact</a>
+</nav>
 
 <main>
   <!-- Home / full-bleed image -->
@@ -1086,6 +1194,62 @@ document.addEventListener('keydown', (e)=>{
     if(modal.classList.contains('open')) modal.classList.remove('open');
   }
 });
+
+
+  (function() {
+    const toggle = document.querySelector('.menu-toggle');
+    const panel  = document.getElementById('mobileMenu');
+    if (!toggle || !panel) return;
+
+    function openMenu() {
+      toggle.setAttribute('aria-expanded', 'true');
+      panel.classList.add('open');
+      panel.hidden = false;
+      document.body.style.overflowY = 'hidden'; // lock background scroll
+    }
+    function closeMenu() {
+      toggle.setAttribute('aria-expanded', 'false');
+      panel.classList.remove('open');
+      panel.hidden = true;
+      document.body.style.overflowY = ''; // restore scroll
+    }
+
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      expanded ? closeMenu() : openMenu();
+    });
+
+    // Close on link click + smooth-scroll
+    panel.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const el = document.querySelector(href);
+          closeMenu();
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          closeMenu();
+        }
+      });
+    });
+
+    // Close when clicking outside panel/toggle
+    document.addEventListener('click', (e) => {
+      if (toggle.getAttribute('aria-expanded') !== 'true') return;
+      const isToggle = e.target.closest('.menu-toggle');
+      const isPanel  = e.target.closest('#mobileMenu');
+      if (!isToggle && !isPanel) closeMenu();
+    });
+
+    // Esc to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+  })();
+
+
+
 </script>
 </body>
 </html>
