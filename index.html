@@ -456,6 +456,39 @@
 
   /* Setup title spacing (all screens) */
   #setup .two-images { margin-top: 60px; }
+
+
+
+  /* --- Fix: Setup & Deployment images collapse on small screens --- */
+@media (max-width: 900px) {
+  /* stack vertically */
+  #setup .two-images {
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+
+  /* stop flex shrinking and give a responsive height */
+  #setup .two-images .img {
+    flex: 0 0 auto;         /* override flex:1 from desktop */
+    width: 100%;
+    aspect-ratio: 16 / 10;  /* consistent visible area */
+    height: auto;           /* driven by aspect-ratio */
+    min-height: 200px;      /* safety floor */
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+}
+
+/* Optional: even tighter phones */
+@media (max-width: 480px) {
+  #setup .two-images .img {
+    aspect-ratio: 4 / 3;    /* a bit taller on very small screens */
+    min-height: 180px;
+  }
+}
+
 </style>
 </head>
 
